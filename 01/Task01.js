@@ -1,46 +1,53 @@
-import React, { useState } from 'react';
-import Subject from './../src/libs/Subject';
+import React, { useEffect, useState } from "react";
+import Subject from "./../src/libs/Subject";
 
 const Task01 = () => {
-    const [time, setTime] = useState(0);
-    const [tagName, setTagName] = useState('??');
-    const [cursorPosition, setCursorPosition] = useState('[?,?]');
+  const [time, setTime] = useState(0);
+  const [tagName, setTagName] = useState("??");
+  const [cursorPosition, setCursorPosition] = useState("[?,?]");
 
-    const setEventTime = ({timeStamp}) => {
-        setTime( parseInt(timeStamp / 1000) );
-    }
+  const subject = new Subject();
 
-    const setEventTagName = ({target}) => {
-        setTagName(target.tagName);
-    }
+  const setEventTime = ({ timeStamp }) => {
+    setTime(parseInt(timeStamp / 1000));
+  };
 
-    const setEventCursorPosition = ({pageX, pageY}) => {
-        setCursorPosition(`[${pageX},${pageY}]`);
-    }
+  const setEventTagName = ({ target }) => {
+    setTagName(target.tagName);
+  };
 
-    return (
-        <section>
-            <h1>Task 1</h1>
-            
-            <div onClick={ event => {
-                setEventTime(event);
-                setEventTagName(event);
-                setEventCursorPosition(event);
-            }}>
-                <p>
-                    <strong>Kliknij wybrany element:</strong> <a>link</a>, <button>button</button>, <span>span</span>
-                </p>
+  const setEventCursorPosition = ({ pageX, pageY }) => {
+    setCursorPosition(`[${pageX},${pageY}]`);
+  };
 
+  useEffect(() => {
+    subject.subscribe(setEventTime);
+    subject.subscribe(setEventTagName);
+    subject.subscribe(setEventCursorPosition);
+  }, []);
 
-                <ul>
-                    <li>time: { time }s</li>
-                    <li>tagName: { tagName }</li>
-                    <li>position: { cursorPosition }</li>
-                </ul>
-            </div>
-        </section>
-    )
-}
+  return (
+    <section>
+      <h1>Task 1</h1>
+
+      <div
+        onClick={(event) => {
+          subject.notify(event);
+        }}
+      >
+        <p>
+          <strong>Kliknij wybrany element:</strong> <a>link</a>,{" "}
+          <button>button</button>, <span>span</span>
+        </p>
+
+        <ul>
+          <li>time: {time}s</li>
+          <li>tagName: {tagName}</li>
+          <li>position: {cursorPosition}</li>
+        </ul>
+      </div>
+    </section>
+  );
+};
 
 export default Task01;
-
