@@ -7,10 +7,19 @@ import { Provider } from "react-redux";
 import App from "./components/App";
 const initState = {
   message: "Działa!",
+  time: new Date(),
 };
 
 const reducer = (state = initState, action) => {
-  return state;
+  switch (action.type) {
+    case "getCurrentTime":
+      return {
+        ...state,
+        time: new Date(),
+      };
+    default:
+      return state;
+  }
 };
 
 const store = createStore(reducer);
