@@ -5,6 +5,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 
 import App from "./components/App";
+
 const initState = {
   message: "Działa!",
   time: new Date(),
@@ -22,7 +23,11 @@ const reducer = (state = initState, action) => {
   }
 };
 
-const store = createStore(reducer);
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+ 
 
 const root = createRoot(document.querySelector("#root"));
 root.render(
