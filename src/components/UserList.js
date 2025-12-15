@@ -1,13 +1,14 @@
 import React from 'react';
 import UserItem from './UserItem';
 import { connect } from "react-redux";
+import { addUserAction } from "../actions/users";
 
 class UserList extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const name = e.target.elements.userName.value.trim();
     if (name) {
-      this.props.dispatch({ type: "addNewUser", payload: { name } });
+      this.props.dispatch(addUserAction({ name }));
       e.target.reset();
     }
   };

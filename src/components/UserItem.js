@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
+import { removeUserAction } from "../actions/users";
 
 const UserItem = ({ user }) => {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
-    dispatch({ type: "removeUser", payload: { id: user.id } });
+    dispatch(removeUserAction({ id: user.id }));
   };
 
   return (

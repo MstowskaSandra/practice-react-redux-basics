@@ -14,7 +14,7 @@ const App = () => {
         <Task02 />
         <Task03 />
         <Task04 />
-        {/* <Task05 /> */}
+        <Task05 />
       </>
     );
 }
